@@ -108,6 +108,12 @@ section {
     font-weight: 700;
 }
 
+.currency-convert{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .currency-value {
     color: rgb(255, 255, 255);
     font-size: 25px;

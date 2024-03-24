@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./assets/vecteezy_reembolso-plano-cor-esboco-icone_19858801.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <title>Currency Converter</title>
 </head>
@@ -22,15 +23,22 @@
             <label>
                 Convert <b>from:</b>
                 <select class="currency-coin-convert">
-                    <option>BRL</option>
+                    <option value="real-to">BRL Real</option>
+                    <option value="dolar-to">USD American Dólar</option>
+                    <option value="euro-to">€ Euro</option>
+                    <option value="libra-to">£ Pound Sterling</option>
+                    <option value="bitcoin-to">₿ Bitcoin</option>
                 </select>
             </label>
 
             <label>
                 Convert <b>to:</b>
-                <select class="currency-coin-converted">
-                    <option value="dolar">USD</option>
-                    <option value="euro">€</option>
+                <select class="currency-coin-converted"> 
+                    <option value="dolar">USD American Dólar</option>
+                    <option value="euro">€ Euro</option>
+                    <option value="libra">£ Pound Sterling</option>
+                    <option value="bitcoin">₿ Bitcoin</option>
+                    <option value="real">BRL Real</option>
                 </select>
             </label>
             <label>
@@ -42,8 +50,8 @@
         </div>
         <section>
             <div class="Currency">
-                <img src="./assets/Real.png" alt="logo-to-convert">
-                <p class="currency">BRL</p>
+                <img src="./assets/Real.png" alt="logo-to-convert" class="logo-convert">
+                <p class="currency-convert">BRL</p>
                 <p class="currency-value">R$ 0,00</p>
             </div>
 
