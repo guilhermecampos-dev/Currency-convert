@@ -136,15 +136,22 @@ section {
 
     .logo-mobile{
         display: block;
-        height: 115px;
-        width: 115px;
+        height: 110px;
+        width: 110px;
         z-index: 1;
         position: absolute;
-        margin: 5px 140px;
+        margin: 110px;
     }
+    .mobile-logo{
+        display: flex;
+        align-items: center;
+        margin-top: 55px;
+    }
+    
+    
     .teste{
         position: relative;
-        top: 14%;
+        top: 8%;
     }
 
     main{
@@ -153,10 +160,11 @@ section {
         height: 100vh;
         top: 0;
         position: fixed;
+        overflow-y: auto;
     }
     section{
         position: relative;
-        top: 16%;
+        top: 12%;
     }
 
     button{
