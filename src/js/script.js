@@ -1,3 +1,5 @@
+import { getCurrencyRates } from "./api/currencyApi.js"
+
 const convertButton = document.querySelector(".buttonconvert")
 const currencySelect = document.querySelector(".currency-coin-converted")
 const currencySelectConvert = document.querySelector(".currency-coin-convert")
@@ -7,7 +9,7 @@ const convertValues = async () => {
     const currencyValueToConvert = document.querySelector(".currency-value")
     const currencyValueConverted = document.querySelector(".currency-value-convert")
 
-    const data = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL,GBP-BRL").then(response => response.json())
+    const data = await getCurrencyRates()
 
     const dolarToday = data.USDBRL.high
     const euroToday = data.EURBRL.high
