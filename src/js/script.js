@@ -1,4 +1,5 @@
 import { getCurrencyRates } from "./api/currencyApi.js"
+import { formatCurrency } from "./utils/currencyFormatter.js"
 
 const convertButton = document.querySelector(".buttonconvert")
 const currencySelect = document.querySelector(".currency-coin-converted")
@@ -22,12 +23,10 @@ const convertValues = async () => {
     }).format(inputCurrencyValue)
 
 
-    if (currencySelect.value == "real-to") {
-        currencyValueToConvert.innerHTML = new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        }).format(inputCurrencyValue)
-    }
+    currencyValueToConvert.innerHTML = formatCurrency(
+        inputCurrencyValue,
+        "BRL"
+    )
 
 
     if (currencySelect.value == "libra-to") {
