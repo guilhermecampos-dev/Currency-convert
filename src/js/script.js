@@ -5,6 +5,12 @@ const convertButton = document.querySelector(".buttonconvert")
 const currencySelect = document.querySelector(".currency-coin-converted")
 const currencySelectConvert = document.querySelector(".currency-coin-convert")
 
+const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
+    const amountInBRL = amount * rates[fromCurrency]
+
+    return amountInBRL / rates[toCurrency]
+}
+
 const convertValues = async () => {
     const inputCurrencyValue = document.querySelector(".input-currency").value
     const currencyValueToConvert = document.querySelector(".currency-value")
@@ -17,6 +23,14 @@ const convertValues = async () => {
     const libraToday = data.GBPBRL.high
     const bitcoinToday = data.BTCBRL.high
 
+    const exchangeRates = {
+        BRL: 1,
+        USD: Number(dolarToday),
+        EUR: Number(euroToday),
+        GBP: Number(libraToday),
+        BTC: Number(bitcoinToday)
+    }
+
     currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD"
@@ -27,7 +41,6 @@ const convertValues = async () => {
         inputCurrencyValue,
         "BRL"
     )
-
 
     if (currencySelect.value == "libra-to") {
         currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-GB", {
@@ -237,6 +250,15 @@ const convertValues = async () => {
             currency: "GBP"
         }).format(inputCurrencyValue * 52114.20)
     }
+
+    console.log(
+        convertCurrency(
+            100,
+            "USD",
+            "EUR",
+            exchangeRates
+        )
+    )
 }
 
 
