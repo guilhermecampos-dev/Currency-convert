@@ -7,41 +7,43 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="./assets/vecteezy_reembolso-plano-cor-esboco-icone_19858801.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/vecteezy_reembolso-plano-cor-esboco-icone_19858801.png"
+        type="image/x-icon">
     <link rel="stylesheet" href="./src/css/style.css">
     <title>Currency Converter</title>
 </head>
 
 <body>
-    
+
     <div class="background">
-        <img src="./assets/vecteezy_money-currency-exchange-and-money-transfer-on-stock_9484991.jpg" alt="Currency exchange background"
-            class="backgroundlogo">
+        <img src="./assets/vecteezy_money-currency-exchange-and-money-transfer-on-stock_9484991.jpg"
+            alt="Currency exchange background" class="backgroundlogo">
     </div>
     <main>
         <div class="mobile-logo">
-        <img src="./assets/vecteezy_reembolso-plano-cor-esboco-icone_19858801.png" class="logo-mobile" alt="Currency converter logo">
-    </div>
+            <img src="./assets/vecteezy_reembolso-plano-cor-esboco-icone_19858801.png" class="logo-mobile"
+                alt="Currency converter logo">
+        </div>
         <div class="teste">
             <label>
                 Convert <b>from:</b>
                 <select class="currency-coin-convert">
-                    <option value="real-to">BRL Real</option>
-                    <option value="dolar-to">USD American Dólar</option>
-                    <option value="euro-to">€ Euro</option>
-                    <option value="libra-to">£ Pound Sterling</option>
-                    <option value="bitcoin-to">₿ Bitcoin</option>
+                    <option value="BRL">BRL Real</option>
+                    <option value="USD">USD American Dólar</option>
+                    <option value="EUR">€ Euro</option>
+                    <option value="GBP">£ Pound Sterling</option>
+                    <option value="BTC">₿ Bitcoin</option>
                 </select>
             </label>
 
             <label>
                 Convert <b>to:</b>
-                <select class="currency-coin-converted"> 
-                    <option value="dolar">USD American Dólar</option>
-                    <option value="euro">€ Euro</option>
-                    <option value="libra">£ Pound Sterling</option>
-                    <option value="bitcoin">₿ Bitcoin</option>
-                    <option value="real">BRL Real</option>
+                <select class="currency-coin-converted">
+                    <option value="USD">USD American Dólar</option>
+                    <option value="EUR">€ Euro</option>
+                    <option value="GBP">£ Pound Sterling</option>
+                    <option value="BTC">₿ Bitcoin</option>
+                    <option value="BRL">BRL Real</option>
                 </select>
             </label>
             <label>
@@ -53,7 +55,7 @@
         </div>
         <section>
             <div class="Currency">
-                <img  src="./assets/Real.png" alt="logo-to-convert" class="logo-convert">
+                <img src="./assets/Real.png" alt="logo-to-convert" class="logo-convert">
                 <p class="currency-convert">BRL</p>
                 <p class="currency-value">0,00</p>
             </div>
@@ -61,14 +63,15 @@
             <img src="./assets/Vector.png" alt="arrow" class="arrow">
 
             <div class="Currency">
-                <img src="./assets/Dolar.png" alt="Dollar currency icon">
+                <img src="./assets/Dolar.png" alt="Dollar currency icon" class="logo-converted">
                 <p class="currency" id="currency-text">USD</p>
                 <p class="currency-value-convert">0,00</p>
             </div>
         </section>
     </main>
 
-<script type="module" src="./src/js/script.js"></script>
+    <script type="module" src="./src/js/script.js"></script>
 
 </body>
+
 </html>
