@@ -12,37 +12,44 @@ const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
 }
 
 const convertValues = async () => {
-    const inputCurrencyValue = document.querySelector(".input-currency").value
-    const currencyValueToConvert = document.querySelector(".currency-value")
-    const currencyValueConverted = document.querySelector(".currency-value-convert")
+    try {
+        const inputCurrencyValue = document.querySelector(".input-currency").value
+        const currencyValueToConvert = document.querySelector(".currency-value")
+        const currencyValueConverted = document.querySelector(".currency-value-convert")
 
-   const exchangeRates = await getCurrencyRates()
+        const exchangeRates = await getCurrencyRates()
 
-    currencyValueToConvert.innerHTML = formatCurrency(
-        Number(inputCurrencyValue),
-        currencySelectConvert.value
-    )
+        currencyValueToConvert.innerHTML = formatCurrency(
+            Number(inputCurrencyValue),
+            currencySelectConvert.value
+        )
 
-    const convertedValue = convertCurrency(
-        Number(inputCurrencyValue),
-        currencySelectConvert.value,
-        currencySelect.value,
-        exchangeRates
-    )
-
-    console.log(
-        convertCurrency(
-            100,
-            "USD",
-            "EUR",
+        const convertedValue = convertCurrency(
+            Number(inputCurrencyValue),
+            currencySelectConvert.value,
+            currencySelect.value,
             exchangeRates
         )
-    )
 
-    currencyValueConverted.innerHTML = formatCurrency(
-        convertedValue,
-        currencySelect.value
-    )
+        console.log(
+            convertCurrency(
+                100,
+                "USD",
+                "EUR",
+                exchangeRates
+            )
+        )
+
+        currencyValueConverted.innerHTML = formatCurrency(
+            convertedValue,
+            currencySelect.value
+        )
+
+    }
+    catch (error) {
+        console.error(error)
+        alert("Unable to load exchange rates. Please try again later.")
+    }
 }
 
 const currencies = {
