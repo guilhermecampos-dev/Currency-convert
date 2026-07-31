@@ -5,7 +5,17 @@ const CURRENCY_API_URL =
 export const getCurrencyRates = async () => {
     const response = await fetch(CURRENCY_API_URL)
 
+    if (!response.ok) {
+        throw new Error("Failed to fetch currency rates")
+    }
+
     const data = await response.json()
 
-    return data
+    return {
+        BRL: 1,
+        USD: Number(data.USDBRL.high),
+        EUR: Number(data.EURBRL.high),
+        GBP: Number(data.GBPBRL.high),
+        BTC: Number(data.BTCBRL.high)
+    }
 }

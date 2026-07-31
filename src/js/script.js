@@ -16,20 +16,7 @@ const convertValues = async () => {
     const currencyValueToConvert = document.querySelector(".currency-value")
     const currencyValueConverted = document.querySelector(".currency-value-convert")
 
-    const data = await getCurrencyRates()
-
-    const dolarToday = data.USDBRL.high
-    const euroToday = data.EURBRL.high
-    const libraToday = data.GBPBRL.high
-    const bitcoinToday = data.BTCBRL.high
-
-    const exchangeRates = {
-        BRL: 1,
-        USD: Number(dolarToday),
-        EUR: Number(euroToday),
-        GBP: Number(libraToday),
-        BTC: Number(bitcoinToday)
-    }
+   const exchangeRates = await getCurrencyRates()
 
     currencyValueToConvert.innerHTML = formatCurrency(
         Number(inputCurrencyValue),
