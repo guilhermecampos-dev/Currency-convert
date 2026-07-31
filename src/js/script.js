@@ -43,7 +43,7 @@ const convertValues = async () => {
         exchangeRates
     )
 
-     console.log(
+    console.log(
         convertCurrency(
             100,
             "USD",
@@ -58,37 +58,37 @@ const convertValues = async () => {
     )
 }
 
+const currencies = {
+    BRL: {
+        symbol: "R$",
+        image: "./assets/Real.png"
+    },
+    USD: {
+        symbol: "USD",
+        image: "./assets/Dolar.png"
+    },
+    EUR: {
+        symbol: "€",
+        image: "./assets/Euro.png"
+    },
+    GBP: {
+        symbol: "£",
+        image: "./assets/Libra.png"
+    },
+    BTC: {
+        symbol: "₿",
+        image: "./assets/bitcoin.png"
+    }
+}
 
 const changeCurrency = () => {
     const currencyName = document.getElementById("currency-text")
     const currencyImage = document.querySelector(".logo-converted")
 
+    const currentCurrency = currencies[currencySelect.value]
 
-    if (currencySelect.value == "BRL") {
-        currencyName.innerHTML = "R$"
-        currencyImage.src = "./assets/Real.png"
-    }
-
-
-    if (currencySelect.value == "USD") {
-        currencyName.innerHTML = "USD"
-        currencyImage.src = "./assets/Dolar.png"
-    }
-
-
-    if (currencySelect.value == "EUR") {
-        currencyName.innerHTML = "€"
-        currencyImage.src = "./assets/Euro.png"
-    }
-
-    if (currencySelect.value == "GBP") {
-        currencyName.innerHTML = "£"
-        currencyImage.src = "./assets/Libra.png"
-    }
-    if (currencySelect.value == "BTC") {
-        currencyName.innerHTML = "₿"
-        currencyImage.src = "./assets/bitcoin.png"
-    }
+    currencyName.innerHTML = currentCurrency.symbol
+    currencyImage.src = currentCurrency.image
 
     convertValues()
 }
@@ -98,28 +98,11 @@ const changeCurrency2 = () => {
     const currencyName2 = document.querySelector(".currency-convert")
     const currencyImage2 = document.querySelector(".logo-convert")
 
-    if (currencySelectConvert.value == "USD") {
-        currencyName2.innerHTML = "USD"
-        currencyImage2.src = "./assets/Dolar.png"
-    }
+    const currentCurrency = currencies[currencySelectConvert.value]
 
-    if (currencySelectConvert.value == "BRL") {
-        currencyName2.innerHTML = "R$"
-        currencyImage2.src = "./assets/Real.png"
-    }
+    currencyName2.innerHTML = currentCurrency.symbol
+    currencyImage2.src = currentCurrency.image
 
-    if (currencySelectConvert.value == "EUR") {
-        currencyName2.innerHTML = "€"
-        currencyImage2.src = "./assets/Euro.png"
-    }
-    if (currencySelectConvert.value == "GBP") {
-        currencyName2.innerHTML = "£"
-        currencyImage2.src = "./assets/Libra.png"
-    }
-    if (currencySelectConvert.value == "BTC") {
-        currencyName2.innerHTML = "₿"
-        currencyImage2.src = "./assets/bitcoin.png"
-    }
     convertValues()
 }
 
