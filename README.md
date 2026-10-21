@@ -28,6 +28,9 @@ https://guilhermecampos-dev.github.io/Currency-convert/
 - User-friendly interface
 - Fast and lightweight application
 - Dynamic currency selection
+- Exchange rates fetched from AwesomeAPI
+- Input validation for empty, negative, and non-finite values
+- Error handling for exchange rate requests
 
 ---
 
@@ -45,8 +48,15 @@ https://guilhermecampos-dev.github.io/Currency-convert/
 Currency-convert
 │
 ├── assets/
-├── css/
-├── js/
+├── src/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       ├── api/
+│       │   └── currencyApi.js
+│       ├── utils/
+│       │   └── currencyFormatter.js
+│       └── script.js
 ├── index.html
 └── README.md
 ```
@@ -88,7 +98,6 @@ During this project I practiced:
 
 ## 📈 Future Improvements
 
-- Consume a real exchange rate API
 - Add dark mode
 - Support more currencies
 - Currency history
