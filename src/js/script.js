@@ -18,28 +18,29 @@ const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
 const convertValues = async () => {
     try {
         const inputCurrencyValue = inputCurrency.value
+        const amount = Number(inputCurrencyValue)
+
+        if (
+            inputCurrencyValue.trim() === "" ||
+            !Number.isFinite(amount) ||
+            amount < 0
+        ) {
+            alert("Please enter a valid amount equal to or greater than zero.")
+            return
+        }
 
         const exchangeRates = await getCurrencyRates()
 
         currencyValueToConvert.innerHTML = formatCurrency(
-            Number(inputCurrencyValue),
+            amount,
             currencySelectConvert.value
         )
 
         const convertedValue = convertCurrency(
-            Number(inputCurrencyValue),
+            amount,
             currencySelectConvert.value,
             currencySelect.value,
             exchangeRates
-        )
-
-        console.log(
-            convertCurrency(
-                100,
-                "USD",
-                "EUR",
-                exchangeRates
-            )
         )
 
         currencyValueConverted.innerHTML = formatCurrency(
