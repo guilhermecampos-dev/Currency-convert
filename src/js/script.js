@@ -5,6 +5,10 @@ const convertButton = document.querySelector(".buttonconvert")
 const currencySelect = document.querySelector(".currency-coin-converted")
 const currencySelectConvert = document.querySelector(".currency-coin-convert")
 
+const inputCurrency = document.querySelector(".input-currency")
+const currencyValueToConvert = document.querySelector(".currency-value")
+const currencyValueConverted = document.querySelector(".currency-value-convert")
+
 const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
     const amountInBRL = amount * rates[fromCurrency]
 
@@ -13,9 +17,7 @@ const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
 
 const convertValues = async () => {
     try {
-        const inputCurrencyValue = document.querySelector(".input-currency").value
-        const currencyValueToConvert = document.querySelector(".currency-value")
-        const currencyValueConverted = document.querySelector(".currency-value-convert")
+        const inputCurrencyValue = inputCurrency.value
 
         const exchangeRates = await getCurrencyRates()
 
