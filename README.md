@@ -9,7 +9,7 @@ This application allows users to convert values between different currencies usi
 ## 🚀 Demo
 
 🔗 Live Demo:
-https://guilhermecampos-dev.github.io/Currency-convert/
+https://currency-convert-4e2.pages.dev/
 
 ---
 
