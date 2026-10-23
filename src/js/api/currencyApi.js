@@ -13,9 +13,9 @@ export const getCurrencyRates = async () => {
 
     return {
         BRL: 1,
-        USD: Number(data.USDBRL.high),
-        EUR: Number(data.EURBRL.high),
-        GBP: Number(data.GBPBRL.high),
-        BTC: Number(data.BTCBRL.high)
+        USD: Number(data.USDBRL.bid),
+        EUR: Number(data.EURBRL.bid),
+        GBP: Number(data.GBPBRL.bid),
+        BTC: Number(data.BTCBRL.bid)
     }
 }
