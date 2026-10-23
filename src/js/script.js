@@ -8,6 +8,7 @@ const currencySelectConvert = document.querySelector(".currency-coin-convert")
 const inputCurrency = document.querySelector(".input-currency")
 const currencyValueToConvert = document.querySelector(".currency-value")
 const currencyValueConverted = document.querySelector(".currency-value-convert")
+const feedbackMessage = document.querySelector(".feedback-message")
 
 const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
     const amountInBRL = amount * rates[fromCurrency]
@@ -17,6 +18,8 @@ const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
 
 const convertValues = async () => {
     try {
+        feedbackMessage.textContent = ""
+
         const inputCurrencyValue = inputCurrency.value
         const amount = Number(inputCurrencyValue)
 
@@ -25,10 +28,9 @@ const convertValues = async () => {
             !Number.isFinite(amount) ||
             amount <= 0
         ) {
-            alert(
-                "Digite um valor válido maior que zero.\n" +
+            feedbackMessage.textContent =
+                "Digite um valor válido maior que zero. / " +
                 "Please enter a valid amount greater than zero."
-            )
             return
         }
 
@@ -59,10 +61,9 @@ const convertValues = async () => {
     }
     catch (error) {
         console.error(error)
-        alert(
-            "Não foi possível carregar as cotações. Tente novamente mais tarde.\n" +
+        feedbackMessage.textContent =
+            "Não foi possível carregar as cotações. Tente novamente mais tarde. / " +
             "Unable to load exchange rates. Please try again later."
-        )
     }
     finally {
         convertButton.disabled = false
