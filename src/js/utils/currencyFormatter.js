@@ -9,6 +9,10 @@ export const formatCurrency = (value, currency) => {
 
     return new Intl.NumberFormat(locale[currency], {
         style: "currency",
-        currency
+        currency,
+        ...(currency === "BTC" ? {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 8
+        } : {})
     }).format(value)
 }
