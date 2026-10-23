@@ -23,11 +23,19 @@ const convertValues = async () => {
         if (
             inputCurrencyValue.trim() === "" ||
             !Number.isFinite(amount) ||
-            amount < 0
+            amount <= 0
         ) {
-            alert("Please enter a valid amount equal to or greater than zero.")
+            alert(
+                "Digite um valor válido maior que zero.\n" +
+                "Please enter a valid amount greater than zero."
+            )
             return
         }
+
+        convertButton.disabled = true
+        convertButton.textContent = "Converting..."
+        currencySelect.disabled = true
+        currencySelectConvert.disabled = true
 
         const exchangeRates = await getCurrencyRates()
 
@@ -51,7 +59,16 @@ const convertValues = async () => {
     }
     catch (error) {
         console.error(error)
-        alert("Unable to load exchange rates. Please try again later.")
+        alert(
+            "Não foi possível carregar as cotações. Tente novamente mais tarde.\n" +
+            "Unable to load exchange rates. Please try again later."
+        )
+    }
+    finally {
+        convertButton.disabled = false
+        convertButton.textContent = "Convert"
+        currencySelect.disabled = false
+        currencySelectConvert.disabled = false
     }
 }
 
