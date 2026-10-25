@@ -1,5 +1,6 @@
 const CURRENCY_API_URL =
-    "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL,GBP-BRL"
+    "https://economia.awesomeapi.com.br/last/" +
+    "USD-BRL,EUR-BRL,BTC-BRL,GBP-BRL,CAD-BRL,AUD-BRL,JPY-BRL,CHF-BRL,ARS-BRL,ZAR-BRL"
 
 
 export const getCurrencyRates = async ({ signal } = {}) => {
@@ -42,6 +43,12 @@ export const getCurrencyRates = async ({ signal } = {}) => {
             USD: Number(data.USDBRL.bid),
             EUR: Number(data.EURBRL.bid),
             GBP: Number(data.GBPBRL.bid),
+            CAD: Number(data.CADBRL.bid),
+            AUD: Number(data.AUDBRL.bid),
+            JPY: Number(data.JPYBRL.bid),
+            CHF: Number(data.CHFBRL.bid),
+            ARS: Number(data.ARSBRL.bid),
+            ZAR: Number(data.ZARBRL.bid),
             BTC: Number(data.BTCBRL.bid)
         }
     }
