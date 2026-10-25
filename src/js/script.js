@@ -11,12 +11,62 @@ const inputCurrency = document.querySelector(".input-currency")
 const currencyValueToConvert = document.querySelector(".currency-value")
 const currencyValueConverted = document.querySelector(".currency-value-convert")
 const feedbackMessage = document.querySelector(".feedback-message")
+const conversionDetails = document.querySelector(".conversion-details")
+const exchangeRateText = document.querySelector(".exchange-rate")
+const quoteTimesLabel = document.querySelector(".quote-times-label")
+const quoteTimestamps = document.querySelector(".quote-timestamps")
 let activeController = null
 
 const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
     const amountInBRL = amount * rates[fromCurrency]
 
     return amountInBRL / rates[toCurrency]
+}
+
+const showQuoteDetails = (fromCurrency, toCurrency, rates, timestamps) => {
+    const rate = convertCurrency(1, fromCurrency, toCurrency, rates)
+    const formattedRate = new Intl.NumberFormat("pt-BR", {
+        maximumSignificantDigits: 8
+    }).format(rate)
+
+    exchangeRateText.textContent = `1 ${fromCurrency} = ${formattedRate} ${toCurrency}`
+    quoteTimesLabel.textContent = fromCurrency === toCurrency
+        ? "Mesma moeda: taxa de conversão igual a 1."
+        : "Horários das cotações no seu fuso:"
+
+    const quotedCurrencies = fromCurrency === toCurrency
+        ? []
+        : [...new Set([fromCurrency, toCurrency])].filter(currency => currency !== "BRL")
+
+    const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        timeZoneName: "short"
+    })
+
+    quotedCurrencies.forEach((currency) => {
+        const item = document.createElement("li")
+        const date = timestamps[currency] ? new Date(timestamps[currency] * 1000) : null
+        item.textContent = `${currency}/BRL: `
+
+        if (date && !Number.isNaN(date.getTime())) {
+            const time = document.createElement("time")
+            time.dateTime = date.toISOString()
+            time.textContent = dateFormatter.format(date)
+            item.appendChild(time)
+        }
+        else {
+            item.appendChild(document.createTextNode("horário não informado pela fonte"))
+        }
+
+        quoteTimestamps.appendChild(item)
+    })
+
+    conversionDetails.hidden = false
 }
 
 const convertValues = async () => {
@@ -30,6 +80,10 @@ const convertValues = async () => {
         feedbackMessage.textContent = ""
         currencyValueToConvert.textContent = "—"
         currencyValueConverted.textContent = "—"
+        conversionDetails.hidden = true
+        exchangeRateText.textContent = ""
+        quoteTimesLabel.textContent = ""
+        quoteTimestamps.replaceChildren()
 
         const inputCurrencyValue = inputCurrency.value
         const amount = Number(inputCurrencyValue)
@@ -53,7 +107,7 @@ const convertValues = async () => {
         activeController = new AbortController()
         cancelButton.hidden = false
 
-        const exchangeRates = await getCurrencyRates({
+        const { rates: exchangeRates, timestamps } = await getCurrencyRates({
             signal: activeController.signal
         })
 
@@ -72,6 +126,13 @@ const convertValues = async () => {
         currencyValueConverted.innerHTML = formatCurrency(
             convertedValue,
             currencySelect.value
+        )
+
+        showQuoteDetails(
+            currencySelectConvert.value,
+            currencySelect.value,
+            exchangeRates,
+            timestamps
         )
 
     }

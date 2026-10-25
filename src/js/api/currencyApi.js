@@ -38,7 +38,7 @@ export const getCurrencyRates = async ({ signal } = {}) => {
             throw new DOMException("Request aborted", "AbortError")
         }
 
-        return {
+        const rates = {
             BRL: 1,
             USD: Number(data.USDBRL.bid),
             EUR: Number(data.EURBRL.bid),
@@ -51,6 +51,18 @@ export const getCurrencyRates = async ({ signal } = {}) => {
             ZAR: Number(data.ZARBRL.bid),
             BTC: Number(data.BTCBRL.bid)
         }
+
+        const timestamps = {}
+        Object.keys(rates).forEach((currency) => {
+            if (currency !== "BRL") {
+                const timestamp = Number(data[`${currency}BRL`]?.timestamp)
+                timestamps[currency] = Number.isFinite(timestamp) && timestamp > 0
+                    ? timestamp
+                    : null
+            }
+        })
+
+        return { rates, timestamps }
     }
     catch (error) {
         if (controller.signal.aborted) {

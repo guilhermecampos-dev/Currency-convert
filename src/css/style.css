@@ -160,6 +160,10 @@ select:disabled { opacity: .65; cursor: wait; }
 .currency-value-convert { margin: 0; font-size: clamp(32px, 3.5vw, 48px); font-weight: 650; letter-spacing: -1.8px; line-height: 1.25; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .destination-currency { margin-top: 16px; }
 .destination-currency .currency { color: var(--accent); }
+.conversion-details { margin-top: 24px; overflow-wrap: anywhere; }
+.exchange-rate { display: inline-block; margin: 0; padding: 10px 12px; border-radius: 8px; color: var(--accent); background: var(--accent-soft); font-size: 13px; font-weight: 600; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.quote-times-label { margin: 16px 0 6px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.quote-timestamps { list-style: none; padding: 0; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
 .rate-note { padding-top: 18px; border-top: 1px solid var(--border); }
 .rate-note > p:last-child { color: var(--muted); margin: 8px 0 0; font-size: 12px; line-height: 1.7; }
 .details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; padding: 35px 0 46px; }
