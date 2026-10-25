@@ -47,24 +47,12 @@
                 <div class="currency-row">
                     <div class="currency-field">
                         <label class="field-label" for="from">De / From</label>
-                        <select class="currency-coin-convert" id="from">
-                            <option value="BRL">BRL · Real brasileiro</option>
-                            <option value="USD">USD · Dólar americano</option>
-                            <option value="EUR">EUR · Euro</option>
-                            <option value="GBP">GBP · Libra esterlina</option>
-                            <option value="BTC">BTC · Bitcoin</option>
-                        </select>
+                        <select class="currency-coin-convert" id="from" data-default="BRL"></select>
                     </div>
                     <span class="direction" aria-hidden="true">→</span>
                     <div class="currency-field">
                         <label class="field-label" for="to">Para / To</label>
-                        <select class="currency-coin-converted" id="to">
-                            <option value="USD">USD · Dólar americano</option>
-                            <option value="BRL">BRL · Real brasileiro</option>
-                            <option value="EUR">EUR · Euro</option>
-                            <option value="GBP">GBP · Libra esterlina</option>
-                            <option value="BTC">BTC · Bitcoin</option>
-                        </select>
+                        <select class="currency-coin-converted" id="to" data-default="USD"></select>
                     </div>
                 </div>
                 <button class="buttonconvert" type="button">Convert</button>

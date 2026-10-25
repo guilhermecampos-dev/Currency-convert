@@ -1,13 +1,7 @@
-export const formatCurrency = (value, currency) => {
-    const locale = {
-        BRL: "pt-BR",
-        USD: "en-US",
-        EUR: "de-DE",
-        GBP: "en-GB",
-        BTC: "en-US"
-    }
+import { currencies } from "../data/currencies.js"
 
-    return new Intl.NumberFormat(locale[currency], {
+export const formatCurrency = (value, currency) => {
+    return new Intl.NumberFormat(currencies[currency].locale, {
         style: "currency",
         currency,
         ...(currency === "BTC" ? {

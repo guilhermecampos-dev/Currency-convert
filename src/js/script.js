@@ -1,5 +1,6 @@
 import { getCurrencyRates } from "./api/currencyApi.js"
 import { formatCurrency } from "./utils/currencyFormatter.js"
+import { currencies } from "./data/currencies.js"
 
 const convertButton = document.querySelector(".buttonconvert")
 const cancelButton = document.querySelector(".buttoncancel")
@@ -118,27 +119,15 @@ const convertValues = async () => {
     }
 }
 
-const currencies = {
-    BRL: {
-        symbol: "R$",
-        image: "./assets/Real.png"
-    },
-    USD: {
-        symbol: "USD",
-        image: "./assets/Dolar.png"
-    },
-    EUR: {
-        symbol: "€",
-        image: "./assets/Euro.png"
-    },
-    GBP: {
-        symbol: "£",
-        image: "./assets/Libra.png"
-    },
-    BTC: {
-        symbol: "₿",
-        image: "./assets/bitcoin.png"
-    }
+const populateCurrencySelect = (select) => {
+    Object.entries(currencies).forEach(([code, currency]) => {
+        const option = document.createElement("option")
+        option.value = code
+        option.textContent = `${code} · ${currency.name}`
+        select.appendChild(option)
+    })
+
+    select.value = select.dataset.default
 }
 
 const changeCurrency = () => {
@@ -165,6 +154,9 @@ const changeCurrency2 = () => {
 
     convertValues()
 }
+
+populateCurrencySelect(currencySelectConvert)
+populateCurrencySelect(currencySelect)
 
 currencySelectConvert.addEventListener("change", changeCurrency2)
 currencySelect.addEventListener("change", changeCurrency)
