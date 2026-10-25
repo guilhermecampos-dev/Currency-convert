@@ -33,6 +33,12 @@ label {
     font-weight: 500;
 }
 
+select,
+input,
+button {
+    min-height: 48px;
+}
+
 select {
 
     border-radius: 20px;
@@ -55,9 +61,20 @@ input {
     font-weight: 700;
     font-size: 16px;
     color: #263238;
-    height: 30px;
+    height: auto;
     border-radius: 10px;
-    padding-left: 12px;
+    padding: 12px;
+}
+
+.input-currency::-webkit-inner-spin-button,
+.input-currency::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-currency {
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 button {
@@ -66,7 +83,8 @@ button {
     width: 100%;
     border-radius: 20px;
     border: none;
-    height: 30px;
+    height: auto;
+    padding: 12px;
     margin-bottom: 15px;
     cursor: pointer;
     font-size: 18px;
@@ -97,7 +115,6 @@ button:disabled:hover {
     background: #1d3030;
     color: #ffffff;
     border: 2px solid #ffffff;
-    min-height: 44px;
     height: auto;
     padding: 10px 12px;
     font-size: 16px;
@@ -108,7 +125,9 @@ button:disabled:hover {
     color: #ffffff;
 }
 
-.buttoncancel:focus-visible {
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
     outline: 3px solid #ffffff;
     outline-offset: 3px;
 }
@@ -223,7 +242,7 @@ section {
 
     .buttonconvert{
         margin-top: 14px;
-        height: 64px;
-        font-size: 37px;
+        min-height: 52px;
+        font-size: 20px;
     }
 }
