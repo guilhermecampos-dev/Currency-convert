@@ -79,7 +79,12 @@ button:hover {
     transition: 0.1s ease-in-out;
 }
 
-button:disabled,
+button:disabled {
+    background: #595959;
+    color: #ffffff;
+    cursor: wait;
+}
+
 select:disabled {
     opacity: 0.65;
     cursor: wait;
@@ -87,6 +92,26 @@ select:disabled {
 
 button:disabled:hover {
     color: #ffffff;
+}
+
+.buttoncancel {
+    background: #1d3030;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    min-height: 44px;
+    height: auto;
+    padding: 10px 12px;
+    font-size: 16px;
+}
+
+.buttoncancel:hover {
+    background: #304d4d;
+    color: #ffffff;
+}
+
+.buttoncancel:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
 }
 
 .feedback-message {
@@ -103,6 +128,10 @@ button:disabled:hover {
 .feedback-message:empty {
     padding: 0;
     margin-bottom: 0;
+}
+
+.feedback-message.is-neutral {
+    background: #1d3030;
 }
 
 section {
@@ -193,7 +222,7 @@ section {
         top: 12%;
     }
 
-    button{
+    .buttonconvert{
         margin-top: 14px;
         height: 64px;
         font-size: 37px;

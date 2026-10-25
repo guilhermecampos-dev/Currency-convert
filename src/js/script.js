@@ -2,6 +2,7 @@ import { getCurrencyRates } from "./api/currencyApi.js"
 import { formatCurrency } from "./utils/currencyFormatter.js"
 
 const convertButton = document.querySelector(".buttonconvert")
+const cancelButton = document.querySelector(".buttoncancel")
 const currencySelect = document.querySelector(".currency-coin-converted")
 const currencySelectConvert = document.querySelector(".currency-coin-convert")
 
@@ -9,6 +10,7 @@ const inputCurrency = document.querySelector(".input-currency")
 const currencyValueToConvert = document.querySelector(".currency-value")
 const currencyValueConverted = document.querySelector(".currency-value-convert")
 const feedbackMessage = document.querySelector(".feedback-message")
+let activeController = null
 
 const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
     const amountInBRL = amount * rates[fromCurrency]
@@ -17,7 +19,13 @@ const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
 }
 
 const convertValues = async () => {
+    if (activeController) {
+        return
+    }
+
     try {
+        feedbackMessage.classList.remove("is-neutral")
+        feedbackMessage.setAttribute("role", "alert")
         feedbackMessage.textContent = ""
         currencyValueToConvert.textContent = "—"
         currencyValueConverted.textContent = "—"
@@ -41,7 +49,12 @@ const convertValues = async () => {
         currencySelect.disabled = true
         currencySelectConvert.disabled = true
 
-        const exchangeRates = await getCurrencyRates()
+        activeController = new AbortController()
+        cancelButton.hidden = false
+
+        const exchangeRates = await getCurrencyRates({
+            signal: activeController.signal
+        })
 
         currencyValueToConvert.innerHTML = formatCurrency(
             amount,
@@ -62,8 +75,12 @@ const convertValues = async () => {
 
     }
     catch (error) {
-        console.error(error)
         if (error.name === "AbortError") {
+            feedbackMessage.classList.add("is-neutral")
+            feedbackMessage.setAttribute("role", "status")
+            feedbackMessage.textContent = "Consulta cancelada. / Request canceled."
+        }
+        else if (error.name === "TimeoutError") {
             feedbackMessage.textContent =
                 "A consulta demorou mais que o esperado. Tente novamente. / " +
                 "The request took longer than expected. Please try again."
@@ -83,12 +100,21 @@ const convertValues = async () => {
                 "Não foi possível acessar o serviço de cotações. Verifique sua conexão ou tente mais tarde. / " +
                 "Unable to reach the exchange rate service. Check your connection or try again later."
         }
+
+        if (error.name !== "AbortError") {
+            console.error(error)
+        }
     }
     finally {
         convertButton.disabled = false
         convertButton.textContent = "Convert"
         currencySelect.disabled = false
         currencySelectConvert.disabled = false
+        if (document.activeElement === cancelButton) {
+            convertButton.focus()
+        }
+        cancelButton.hidden = true
+        activeController = null
     }
 }
 
@@ -143,3 +169,4 @@ const changeCurrency2 = () => {
 currencySelectConvert.addEventListener("change", changeCurrency2)
 currencySelect.addEventListener("change", changeCurrency)
 convertButton.addEventListener("click", convertValues)
+cancelButton.addEventListener("click", () => activeController?.abort())

@@ -2,9 +2,22 @@ const CURRENCY_API_URL =
     "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL,GBP-BRL"
 
 
-export const getCurrencyRates = async () => {
+export const getCurrencyRates = async ({ signal } = {}) => {
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 10000)
+    const cancelRequest = () => controller.abort()
+    let timedOut = false
+
+    signal?.addEventListener("abort", cancelRequest, { once: true })
+    if (signal?.aborted) {
+        cancelRequest()
+    }
+
+    const timeoutId = setTimeout(() => {
+        if (!controller.signal.aborted) {
+            timedOut = true
+            controller.abort()
+        }
+    }, 10000)
 
     try {
         const response = await fetch(CURRENCY_API_URL, {
@@ -20,6 +33,10 @@ export const getCurrencyRates = async () => {
 
         const data = await response.json()
 
+        if (controller.signal.aborted) {
+            throw new DOMException("Request aborted", "AbortError")
+        }
+
         return {
             BRL: 1,
             USD: Number(data.USDBRL.bid),
@@ -28,7 +45,17 @@ export const getCurrencyRates = async () => {
             BTC: Number(data.BTCBRL.bid)
         }
     }
+    catch (error) {
+        if (controller.signal.aborted) {
+            throw new DOMException(
+                timedOut ? "Request timed out" : "Request canceled",
+                timedOut ? "TimeoutError" : "AbortError"
+            )
+        }
+        throw error
+    }
     finally {
         clearTimeout(timeoutId)
+        signal?.removeEventListener("abort", cancelRequest)
     }
 }
