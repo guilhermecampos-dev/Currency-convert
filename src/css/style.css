@@ -79,6 +79,16 @@ button:hover {
     transition: 0.1s ease-in-out;
 }
 
+button:disabled,
+select:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+button:disabled:hover {
+    color: #ffffff;
+}
+
 .feedback-message {
     color: #ffffff;
     background: #721c24;

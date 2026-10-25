@@ -19,6 +19,8 @@ const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
 const convertValues = async () => {
     try {
         feedbackMessage.textContent = ""
+        currencyValueToConvert.textContent = "—"
+        currencyValueConverted.textContent = "—"
 
         const inputCurrencyValue = inputCurrency.value
         const amount = Number(inputCurrencyValue)
