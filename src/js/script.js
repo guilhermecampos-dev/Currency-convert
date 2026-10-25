@@ -61,9 +61,26 @@ const convertValues = async () => {
     }
     catch (error) {
         console.error(error)
-        feedbackMessage.textContent =
-            "Não foi possível carregar as cotações. Tente novamente mais tarde. / " +
-            "Unable to load exchange rates. Please try again later."
+        if (error.name === "AbortError") {
+            feedbackMessage.textContent =
+                "A consulta demorou mais que o esperado. Tente novamente. / " +
+                "The request took longer than expected. Please try again."
+        }
+        else if (error.name === "HttpError") {
+            feedbackMessage.textContent =
+                `O serviço de cotações retornou um erro (HTTP ${error.status}). Tente novamente mais tarde. / ` +
+                `The exchange rate service returned an error (HTTP ${error.status}). Please try again later.`
+        }
+        else if (navigator.onLine === false) {
+            feedbackMessage.textContent =
+                "Você parece estar sem conexão. Verifique sua internet e tente novamente. / " +
+                "You appear to be offline. Check your internet connection and try again."
+        }
+        else {
+            feedbackMessage.textContent =
+                "Não foi possível acessar o serviço de cotações. Verifique sua conexão ou tente mais tarde. / " +
+                "Unable to reach the exchange rate service. Check your connection or try again later."
+        }
     }
     finally {
         convertButton.disabled = false

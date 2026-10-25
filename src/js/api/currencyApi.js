@@ -3,19 +3,32 @@ const CURRENCY_API_URL =
 
 
 export const getCurrencyRates = async () => {
-    const response = await fetch(CURRENCY_API_URL)
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 10000)
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch currency rates")
+    try {
+        const response = await fetch(CURRENCY_API_URL, {
+            signal: controller.signal
+        })
+
+        if (!response.ok) {
+            const error = new Error("Failed to fetch currency rates")
+            error.name = "HttpError"
+            error.status = response.status
+            throw error
+        }
+
+        const data = await response.json()
+
+        return {
+            BRL: 1,
+            USD: Number(data.USDBRL.bid),
+            EUR: Number(data.EURBRL.bid),
+            GBP: Number(data.GBPBRL.bid),
+            BTC: Number(data.BTCBRL.bid)
+        }
     }
-
-    const data = await response.json()
-
-    return {
-        BRL: 1,
-        USD: Number(data.USDBRL.bid),
-        EUR: Number(data.EURBRL.bid),
-        GBP: Number(data.GBPBRL.bid),
-        BTC: Number(data.BTCBRL.bid)
+    finally {
+        clearTimeout(timeoutId)
     }
 }
