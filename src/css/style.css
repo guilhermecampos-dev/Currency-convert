@@ -21,7 +21,6 @@ main {
    height: 80%;
    top: 50px;
     position: relative;
-    opacity: .95;
     background: darkslategrey;
     margin: 0 auto 40px; 
     padding: 25px 24px 23px;
@@ -29,7 +28,7 @@ main {
 }
 
 label {
-    color: #000000;
+    color: #ffffff;
     font-size: 20px;
     font-weight: 500;
 }
@@ -43,7 +42,7 @@ select {
     margin-bottom: 14px;
     font-weight: 700;
     font-size: 16px;
-    color: #777777;
+    color: #263238;
     padding: 12px;
 }
 
@@ -55,7 +54,7 @@ input {
     margin-bottom: 24px;
     font-weight: 700;
     font-size: 16px;
-    color: #777777;
+    color: #263238;
     height: 30px;
     border-radius: 10px;
     padding-left: 12px;
@@ -74,9 +73,9 @@ button {
     font-weight: 500;
 }
 
-button:hover {
-    color: darkslategrey;
-    transition: 0.1s ease-in-out;
+.buttonconvert:hover:not(:disabled) {
+    background: #000066;
+    color: #ffffff;
 }
 
 button:disabled {
