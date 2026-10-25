@@ -4,6 +4,7 @@ import { currencies } from "./data/currencies.js"
 
 const convertButton = document.querySelector(".buttonconvert")
 const cancelButton = document.querySelector(".buttoncancel")
+const swapButton = document.querySelector(".swap-currencies")
 const currencySelect = document.querySelector(".currency-coin-converted")
 const currencySelectConvert = document.querySelector(".currency-coin-convert")
 
@@ -103,6 +104,7 @@ const convertValues = async () => {
         convertButton.textContent = "Converting..."
         currencySelect.disabled = true
         currencySelectConvert.disabled = true
+        swapButton.disabled = true
 
         activeController = new AbortController()
         cancelButton.hidden = false
@@ -172,6 +174,7 @@ const convertValues = async () => {
         convertButton.textContent = "Convert"
         currencySelect.disabled = false
         currencySelectConvert.disabled = false
+        swapButton.disabled = false
         if (document.activeElement === cancelButton) {
             convertButton.focus()
         }
@@ -191,28 +194,34 @@ const populateCurrencySelect = (select) => {
     select.value = select.dataset.default
 }
 
+const updateCurrencyDisplay = (currencyCode, nameSelector, imageSelector) => {
+    const currentCurrency = currencies[currencyCode]
+    document.querySelector(nameSelector).textContent = currentCurrency.symbol
+    document.querySelector(imageSelector).src = currentCurrency.image
+}
+
 const changeCurrency = () => {
-    const currencyName = document.getElementById("currency-text")
-    const currencyImage = document.querySelector(".logo-converted")
-
-    const currentCurrency = currencies[currencySelect.value]
-
-    currencyName.innerHTML = currentCurrency.symbol
-    currencyImage.src = currentCurrency.image
-
+    updateCurrencyDisplay(currencySelect.value, "#currency-text", ".logo-converted")
     convertValues()
 }
 
 
 const changeCurrency2 = () => {
-    const currencyName2 = document.querySelector(".currency-convert")
-    const currencyImage2 = document.querySelector(".logo-convert")
+    updateCurrencyDisplay(currencySelectConvert.value, ".currency-convert", ".logo-convert")
+    convertValues()
+}
 
-    const currentCurrency = currencies[currencySelectConvert.value]
+const swapCurrencies = () => {
+    if (activeController) {
+        return
+    }
 
-    currencyName2.innerHTML = currentCurrency.symbol
-    currencyImage2.src = currentCurrency.image
+    const previousFromCurrency = currencySelectConvert.value
+    currencySelectConvert.value = currencySelect.value
+    currencySelect.value = previousFromCurrency
 
+    updateCurrencyDisplay(currencySelectConvert.value, ".currency-convert", ".logo-convert")
+    updateCurrencyDisplay(currencySelect.value, "#currency-text", ".logo-converted")
     convertValues()
 }
 
@@ -223,3 +232,4 @@ currencySelectConvert.addEventListener("change", changeCurrency2)
 currencySelect.addEventListener("change", changeCurrency)
 convertButton.addEventListener("click", convertValues)
 cancelButton.addEventListener("click", () => activeController?.abort())
+swapButton.addEventListener("click", swapCurrencies)
